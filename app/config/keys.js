@@ -22,7 +22,7 @@ module.exports = {
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         url() {
-            return `mongodb://${this.username}:${this.password}@ds157298.mlab.com:57298/${this.name}`;
+            return `mongodb://localhost:27017/cat-facts`;
         }
     },
     generalAccessToken: process.env.GENERAL_ACCESS_TOKEN

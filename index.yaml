@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  title: cat-facts
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /facts:
+    get:
+      summary: get cat facts
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - all
+                properties:
+                  all:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Fact'
+      operationId: get-facts
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: animal_type
+          description: |
+            animal type
+    post:
+      summary: post a cat fact
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
+      operationId: post-facts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                factText:
+                  type: string
+                animalType:
+                  type: string
+              required:
+                - factText
+                - animalType
+  /facts/random:
+    get:
+      summary: random fact
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
+      operationId: get-facts-random
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: animal_type
+        - schema:
+            type: integer
+          in: query
+          name: amount
+components:
+  schemas:
+    Fact:
+      title: Fact
+      type: object
+      x-tags:
+        - factFromCatFacts
+      properties:
+        _id:
+          type: string
+        _v:
+          type: string
+        user:
+          type: string
+        text:
+          type: string
+        updatedAt:
+          type: string
+        sendDate:
+          type: string
+        deleted:
+          type: boolean
+        source:
+          type: string
+        used:
+          type: boolean
+        type:
+          type: string
+      description: A cat fact

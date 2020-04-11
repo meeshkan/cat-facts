@@ -1,3 +1,5 @@
+require('dotenv').config();
+/////////////////////////////////////////
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -19,7 +21,7 @@ mongoose.Promise = global.Promise;
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect('mongodb://'+keys.database.username+':' + keys.database.password + '@ds157298.mlab.com:57298/cat-facts', {
+mongoose.connect(keys.database.url(), {
     useNewUrlParser: true
 });
 
@@ -34,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
 app.use(requestIp.mw());
-
+ 
 const mongoStore = new MongoStore({url: keys.database.url()});
 const sessionMiddleware = session({
     secret: keys.session.secret,
